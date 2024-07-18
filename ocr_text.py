@@ -58,7 +58,7 @@ def main():
     result_path = os.path.join(args.results_dir, folder_name)
     os.makedirs(result_path, exist_ok=True)
 
-    predictions_by_image = run_ocr(images, image_langs, det_model, det_processor, rec_model, rec_processor)
+    predictions_by_image = run_ocr([img], [langs], det_model, det_processor, layout_model, layout_processor, rec_model, rec_processor)
 
     if args.images:
         for idx, (name, image, pred, langs) in enumerate(zip(names, images, predictions_by_image, image_langs)):
@@ -81,10 +81,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
