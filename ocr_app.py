@@ -1,6 +1,5 @@
 import io
 from typing import List
-
 import pypdfium2
 import streamlit as st
 from surya.detection import batch_text_detection
