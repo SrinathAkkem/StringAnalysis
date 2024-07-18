@@ -69,7 +69,7 @@ def order_detection(img) -> (Image.Image, OrderResult):
 # Function for OCR
 def ocr(img, langs: List[str]) -> (Image.Image, OCRResult):
     replace_lang_with_code(langs)
-    img_pred = run_ocr([img], [langs], det_model, det_processor, rec_model, rec_processor)[0]
+    img_pred = run_ocr([img], [langs], det_model, det_processor, layout_model, layout_processor, rec_model, rec_processor)[0]
 
     bboxes = [l.bbox for l in img_pred.text_lines]
     text = [l.text for l in img_pred.text_lines]
