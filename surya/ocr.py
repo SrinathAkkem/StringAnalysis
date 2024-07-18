@@ -5,6 +5,7 @@ from surya.detection import batch_text_detection
 from surya.input.processing import slice_polys_from_image, slice_bboxes_from_image, convert_if_not_rgb
 from surya.postprocessing.text import sort_text_lines
 from surya.recognition import batch_recognition
+from surya.layout import batch_layout_detection
 from surya.schema import TextLine, OCRResult
 
 
@@ -59,9 +60,10 @@ def run_recognition(images: List[Image.Image], langs: List[List[str]], rec_model
     return predictions_by_image
 
 
-def run_ocr(images: List[Image.Image], langs: List[List[str]], det_model, det_processor, rec_model, rec_processor, batch_size=None) -> List[OCRResult]:
+def run_ocr(images: List[Image.Image], langs: List[List[str]], det_model, det_processor, layout_model, layout_processor, rec_model, rec_processor, batch_size=None) -> List[OCRResult]:
     images = convert_if_not_rgb(images)
-    det_predictions = batch_text_detection(images, det_model, det_processor)
+    det_preds = batch_text_detection(images, det_model, det_processor)
+    det_predictions = batch_layout_detection(images, layout_model, layout_processor, det_preds)
 
     all_slices = []
     slice_map = []
